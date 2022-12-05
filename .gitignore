@@ -1,0 +1,21 @@
+# Use in Project
+.env
+.testenv
+.vscode
+/vendor
+/bin
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~%
