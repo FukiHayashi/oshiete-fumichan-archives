@@ -20,7 +20,7 @@ func init() {
 	}
 	// db初期化
 	db := database.DataBaseConnect()
-	db.AutoMigrate(&models.Tweet{})
+	db.AutoMigrate(&models.Tweet{}, &models.Category{}, &models.Tag{}, &models.Keyword{})
 	database.DataBaseDisconnect(db)
 }
 

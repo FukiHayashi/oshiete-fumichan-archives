@@ -18,6 +18,8 @@ type Tweet struct {
 	RetweetScreenName string `json:"retweet_screen_name"`
 	RetweetText       string `json:"retweet_text"`
 	RetweetUrl        string `json:"retweet_url"`
+	// タグ
+	Tags []Tag `gorm:"many2many:tweet_tags"`
 	// DB情報
 	CreatedAt time.Time
 	UpdatedAt time.Time
