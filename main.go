@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"takanome/database"
-	"takanome/models"
 	"takanome/rareskill"
 
 	"github.com/bamzi/jobrunner"
@@ -19,14 +18,17 @@ func init() {
 		log.Fatal("Error loading .env file")
 	}
 	// db初期化
-	db := database.DataBaseConnect()
-	db.AutoMigrate(&models.Tweet{}, &models.Category{}, &models.Tag{}, &models.Keyword{})
-	database.DataBaseDisconnect(db)
+	database.DataBaseInit()
+
+	// ginをリリースモードに
+	gin.SetMode(gin.ReleaseMode)
 }
 
 func main() {
 	jobrunner.Start()
 	jobrunner.Schedule("@every 2h", rareskill.JobTakanome{})
+
+	rareskill.Register()
 
 	router := gin.Default()
 	router.GET("/jobrunner/status", JobResult)
