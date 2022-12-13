@@ -7,8 +7,8 @@ import (
 )
 
 type Keyword struct {
-	ID        uint `gorm:"primaryKey"`
-	Name      string
+	ID        uint   `gorm:"primaryKey"`
+	Name      string `gorm:"unique_tag_id"`
 	TagID     uint
 	Tag       Tag
 	CreatedAt time.Time

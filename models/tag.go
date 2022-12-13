@@ -7,11 +7,11 @@ import (
 )
 
 type Tag struct {
-	ID         uint `gorm:"primaryKey"`
-	Name       string
-	CategoryID uint
-	Category   Category
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
-	DeletedAt  gorm.DeletedAt `gorm:"index"`
+	ID        uint   `gorm:"primaryKey"`
+	Name      string `gorm:"unique_group_id"`
+	GroupID   uint
+	Group     Group
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }

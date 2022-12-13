@@ -7,8 +7,8 @@ import (
 )
 
 type Category struct {
-	ID        uint `gorm:"primaryKey"`
-	Name      string
+	ID        uint   `gorm:"primaryKey"`
+	Name      string `gorm:"unique"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
