@@ -12,13 +12,6 @@ import (
 	"github.com/dghubble/oauth1"
 )
 
-type JobTakanome struct{}
-
-func (e JobTakanome) Run() {
-	Takanome()
-	log.Println(time.Now(), "鷹の目実行")
-}
-
 // 二水ちゃんのツイートをDBへ保存
 func Takanome() {
 	// アカウントのファボのツイートを取得

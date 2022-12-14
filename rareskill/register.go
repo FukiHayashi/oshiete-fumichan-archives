@@ -16,18 +16,21 @@ func Register() {
 	// 前回実行日時取得
 	registered_at := getLastRegisteredAt(db)
 	// 実行日時より新しいtweetを取得
-	tweets := getNewTweets(db, registered_at)
+	tweets := getNewTweets(db, registered_at.LastUpdatedAt)
 	// Tagを取得
 	keywords := getKeywords(db)
 	// keywordを含むツイートにTagをつける
 	registerTagToTweet(db, tweets, keywords)
+
+	registered_at.LastUpdatedAt = time.Now()
+	db.Save(&registered_at)
 }
 
 // 前回実行日時取得
-func getLastRegisteredAt(db *gorm.DB) time.Time {
+func getLastRegisteredAt(db *gorm.DB) models.History {
 	var registered_at models.History
 	db.Where("name = ?", "registeredAt").First(&registered_at)
-	return registered_at.LastUpdatedAt
+	return registered_at
 }
 
 // 前回実行日時より新しいtweetを取得

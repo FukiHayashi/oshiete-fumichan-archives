@@ -26,9 +26,7 @@ func init() {
 
 func main() {
 	jobrunner.Start()
-	jobrunner.Schedule("@every 2h", rareskill.JobTakanome{})
-
-	rareskill.Register()
+	jobrunner.Schedule("@every 2h", rareskill.Jobs{})
 
 	router := gin.Default()
 	router.GET("/jobrunner/status", JobResult)
