@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="/assets/css/reset.css"> <!-- CSS reset -->
+        <link rel="stylesheet" href="/assets/css/style.css"> <!-- Resource style -->
+        <script src="/assets/js/modernizr.js"></script> <!-- Modernizr -->
+        
+        <title>
+            教えて二水ちゃん | {{block "title" .}}
+            {{end}}
+        </title>
+    </head>
+    <body>
+        {{block "header" .}}
+        {{end}}
+        {{block "messages" .}}
+        {{end}}
+        {{block "content" .}}
+        {{end}}
+        {{block "footer" .}}
+        {{end}}
+    </body>
+</html>
