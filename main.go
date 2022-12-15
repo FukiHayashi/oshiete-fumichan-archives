@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"takanome/database"
 	"takanome/rareskill"
+	"takanome/router"
 
 	"github.com/bamzi/jobrunner"
 	"github.com/gin-gonic/gin"
@@ -26,13 +26,8 @@ func init() {
 
 func main() {
 	jobrunner.Start()
-	jobrunner.Schedule("@every 2h", rareskill.Jobs{})
+	jobrunner.Schedule("@every 1h", rareskill.Jobs{})
 
-	router := gin.Default()
-	router.GET("/jobrunner/status", JobResult)
-	router.Run(":3000")
-}
-
-func JobResult(c *gin.Context) {
-	c.JSON(http.StatusOK, jobrunner.StatusJson())
+	rtr := router.New()
+	rtr.Run(":3000")
 }
