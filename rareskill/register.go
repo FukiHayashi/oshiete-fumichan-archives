@@ -51,8 +51,8 @@ func registerTagToTweet(db *gorm.DB, tweets []models.Tweet, keywords []models.Ke
 	var update_tweets []models.Tweet
 	for _, tweet := range tweets {
 		for _, keyword := range keywords {
-			// tweetにキーワードが含まれる場合
-			if strings.Contains(tweet.Text, keyword.Name) {
+			// tweetとretweetにキーワードが含まれる場合
+			if strings.Contains(tweet.Text, keyword.Name) || strings.Contains(tweet.RetweetText, keyword.Name) {
 				// タグが重複する場合は追加しない
 				if !tweetContainedTag(tweet.Tags, keyword.Tag) {
 					tweet.Tags = append(tweet.Tags, keyword.Tag)
