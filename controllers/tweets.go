@@ -13,7 +13,7 @@ func TweetsHandler(ctx *gin.Context) {
 	defer database.DataBaseDisconnect(db)
 
 	var tweets []models.Tweet
-	db.Find(&tweets)
+	db.Preload("Tags").Order("id DESC").Find(&tweets)
 	ctx.HTML(http.StatusOK, "tweets.html", gin.H{
 		"tweets": tweets,
 	})
