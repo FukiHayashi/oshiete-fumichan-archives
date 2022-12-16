@@ -99,7 +99,7 @@ func tagsInit(groups []models.Group) (tags []models.Tag) {
 	for _, row := range rows {
 		if row[0] != "" {
 			for _, group := range groups {
-				if group.Name == row[0] {
+				if group.Name == row[0] && group.Category.Name == row[2] {
 					tag := models.Tag{
 						Name:    row[1],
 						GroupID: group.ID,

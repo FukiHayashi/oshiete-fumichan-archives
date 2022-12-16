@@ -22,6 +22,7 @@ func init() {
 
 	// ginをリリースモードに
 	gin.SetMode(gin.ReleaseMode)
+	rareskill.Register()
 }
 
 func main() {
