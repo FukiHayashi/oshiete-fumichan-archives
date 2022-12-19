@@ -17,11 +17,13 @@ func Register() {
 	registered_at := getLastRegisteredAt(db)
 	// 実行日時より新しいtweetを取得
 	tweets := getNewTweets(db, registered_at.LastUpdatedAt)
-	// Tagを取得
-	keywords := getKeywords(db)
-	// keywordを含むツイートにTagをつける
-	registerTagToTweet(db, tweets, keywords)
-
+	// 新しいツイートが有れば以下を実行
+	if len(tweets) > 0 {
+		// Tagを取得
+		keywords := getKeywords(db)
+		// keywordを含むツイートにTagをつける
+		registerTagToTweet(db, tweets, keywords)
+	}
 	registered_at.LastUpdatedAt = time.Now()
 	db.Save(&registered_at)
 }
@@ -63,7 +65,9 @@ func registerTagToTweet(db *gorm.DB, tweets []models.Tweet, keywords []models.Ke
 		update_tweets = append(update_tweets, tweet)
 	}
 	// tweetを更新
-	db.Save(&update_tweets)
+	if len(update_tweets) > 0 {
+		db.Save(&update_tweets)
+	}
 }
 
 // タグの重複チェック
