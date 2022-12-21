@@ -16,14 +16,14 @@
                     {{.ScreenName}}
                 </div>
                 <div class="card-body">
-                    <p class="card-text">{{.Text}}</p>
+                    <p class="card-text">{{.Text | nl2br}}</p>
                     {{if ne .RetweetText ""}}
                     <div class="card">
                         <div class="card-header">
                             {{.RetweetScreenName}}
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{.RetweetText}}</p>
+                            <p class="card-text">{{.RetweetText | nl2br}}</p>
                         </div>
                     </div>
                     {{end}}
@@ -38,6 +38,26 @@
                 </div>
             </div>
         {{end}}
+        <div class="d-flex justify-content-center">
+            {{if ne .page.PageNumber 1}}
+                <a class="btn btn-secondary" href="/tweets?page=1"><<最初</a>
+            {{end}}
+            {{$total_page := .page.TotalPages}}
+            {{$len := 0}}
+            {{$page_number := .page.PageNumber}}
+            {{range .page.PaginateNum}}
+                {{if and (gt . 0) (le . $total_page)}}
+                    {{if eq . $page_number}}
+                        <a class="btn btn-primary" href="#">{{.}}</a>
+                    {{else}}
+                        <a class="btn btn-secondary" href="/tweets?page={{.}}">{{.}}</a>
+                    {{end}}
+                {{end}}
+                {{$len = .}}
+            {{end}}
+            {{if ne .page.PageNumber .page.TotalPages}}
+                <a class="btn btn-secondary" href="/tweets?page={{.page.TotalPages}}">最後>></a>
+            {{end}}
+        </div>
     </div>
-
 {{end}}
