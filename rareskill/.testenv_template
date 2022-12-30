@@ -1,0 +1,13 @@
+# twitter設定
+TWITTER_CONSUMER_KEY = ""
+TWITTER_SECRET_KEY = ""
+TWITTER_ACCESS_TOKEN = ""
+TWITTER_TOKEN_SECRET = ""
+TWITTER_ACCOUNT = ""
+# DB接続設定
+DATABASE_URL = ""
+# DB初期データ
+CATEGORIES_CSV = "../database/csv/categories.csv"
+GROUPS_CSV = "../database/csv/groups.csv"
+TAGS_CSV = "../database/csv/tags.csv"
+KEYWORDS_CSV = "../database/csv/keywords.csv"
