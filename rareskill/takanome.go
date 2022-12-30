@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"strconv"
 	"takanome/database"
 	"takanome/models"
 	"time"
@@ -44,9 +45,11 @@ func getFavoriteList() []twitter.Tweet {
 	client := twitter.NewClient(httpClient)
 
 	// TWITTER_ACCOUNTのファボを全文で取得する設定
+	max_count, _ := strconv.Atoi(os.Getenv("TWITTER_MAX_COUNT"))
 	params := twitter.FavoriteListParams{
 		ScreenName: os.Getenv("TWITTER_ACCOUNT"),
 		TweetMode:  "extended", // tweet全文で取得
+		Count:      max_count,
 	}
 
 	// ファボのリストを取得
