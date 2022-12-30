@@ -1,0 +1,7 @@
+# DB接続設定
+DATABASE_URL = ""
+# DB初期データ
+CATEGORIES_CSV = "csv/categories.csv"
+GROUPS_CSV = "csv/groups.csv"
+TAGS_CSV = "csv/tags.csv"
+KEYWORDS_CSV = "csv/keywords.csv"

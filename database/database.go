@@ -22,7 +22,8 @@ func DataBaseConnect() *gorm.DB {
 	}
 	db, err := gorm.Open(postgres.New(postgres.Config{Conn: sqlDB}), &gorm.Config{})
 	if err != nil {
-		panic(err.Error())
+		//panic(err.Error())
+		log.Fatalf("Error connect database: %q", err)
 	}
 	return db
 }
@@ -37,7 +38,7 @@ func DataBaseInit() {
 	defer DataBaseDisconnect(db)
 
 	// オートマイグレーション
-	db.AutoMigrate(&models.Tweet{}, &models.Category{}, &models.Tag{}, &models.Keyword{}, &models.History{})
+	db.AutoMigrate(&models.Tweet{}, &models.Category{}, &models.Group{}, &models.Tag{}, &models.Keyword{}, &models.History{})
 
 	// 実行履歴がなければDBへ初期データを投入する
 	var registered_at models.History
