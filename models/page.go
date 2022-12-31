@@ -5,13 +5,17 @@ import (
 )
 
 type Page struct {
-	PageNumber    int
-	PageSize      int
-	TotalElements int64
-	TotalPages    int
-	NextPage      int
-	PrevPage      int
-	PaginateNum   []int
+	PageNumber    int   //現在のページ
+	PageSize      int   //１ページあたりの要素数
+	TotalElements int64 //合計の要素数
+	TotalPages    int   //合計ページ数
+	PaginateInfos []PaginateInfo
+}
+
+type PaginateInfo struct {
+	PageNumber int    //ページ番号
+	PathParam  string //ページのクエリ
+	Info       string //追加情報
 }
 
 func Paginate(page Page) func(db *gorm.DB) *gorm.DB {
