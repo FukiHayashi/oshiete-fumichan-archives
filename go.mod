@@ -10,6 +10,7 @@ require (
 
 require (
 	github.com/bamzi/jobrunner v1.0.0 // indirect
+	github.com/bluele/factory-go v0.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/dghubble/sling v1.4.0 // indirect
 	github.com/gin-contrib/multitemplate v0.0.0-20220829131020-8c2a8441bc2b // indirect
@@ -44,6 +45,7 @@ require (
 	github.com/onsi/gomega v1.24.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
+	github.com/sclevine/agouti v3.0.0+incompatible // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.4.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
