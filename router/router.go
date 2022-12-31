@@ -23,6 +23,7 @@ func New() *gin.Engine {
 	{
 		root.GET("/", func(ctx *gin.Context) { ctx.HTML(http.StatusOK, "index.html", nil) })
 		root.GET("/tweets", controllers.TweetsHandler)
+		root.GET("/tweets/:tag", controllers.TweetsTagHandler)
 		root.GET("/jobrunner/status", func(c *gin.Context) { c.JSON(http.StatusOK, jobrunner.StatusJson()) })
 	}
 	return router

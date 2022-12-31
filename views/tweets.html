@@ -30,7 +30,7 @@
                     {{end}}
                     {{if ne .Tags nil}}
                         {{range .Tags}}
-                            <div class="btn btn-outline-secondary">{{.Name}}</div>
+                            <a class="btn btn-outline-secondary" href="/tweets/{{.Name}}" id="tag-{{.Name}}">{{.Name}}</a>
                         {{end}}
                     {{end}}
                 </div>

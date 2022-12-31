@@ -45,6 +45,31 @@ func TweetsHandler(ctx *gin.Context) {
 	})
 }
 
+// Tagを持つツイートを表示
+func TweetsTagHandler(ctx *gin.Context) {
+	var tweets []models.Tweet
+
+	// DB接続
+	db := database.DataBaseConnect()
+	defer database.DataBaseDisconnect(db)
+
+	// クエリ生成
+	var query = db.Preload("Tags").Order("id DESC").Joins("JOIN tweet_tags ON tweet_tags.tweet_id = tweets.id").
+		Joins("JOIN tags ON tweet_tags.tag_id = tags.id").Where("tags.name in (?)", []string{ctx.Param("tag")})
+
+	// ページ情報取得
+	page := getPageInfo(ctx, &tweets, query)
+
+	// tweetを取得
+	query.Scopes(models.Paginate(page)).Find(&tweets)
+
+	// 結果を返す
+	ctx.HTML(http.StatusOK, "tweets.html", gin.H{
+		"tweets": tweets,
+		"page":   page,
+	})
+}
+
 // ページ情報取得
 func getPageInfo(ctx *gin.Context, tweets *[]models.Tweet, db *gorm.DB) models.Page {
 	// 合計の要素数
