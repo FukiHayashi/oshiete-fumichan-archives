@@ -11,7 +11,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func init() {
+func main() {
 	// .envファイルをロード
 	err := godotenv.Load()
 	if err != nil {
@@ -23,9 +23,7 @@ func init() {
 	// ginをリリースモードに
 	gin.SetMode(gin.ReleaseMode)
 	rareskill.Register()
-}
 
-func main() {
 	jobrunner.Start()
 	jobrunner.Schedule("@every 1h", rareskill.Jobs{})
 
