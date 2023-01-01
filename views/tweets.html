@@ -2,63 +2,75 @@
     tweets
 {{end}}
 {{define "content"}}
-    <div class="col">
-        <form method="GET" action="/tweets" class="text-white">
-            <label>キーワード検索</label>
-            <input id="input-search-keywords" name="keywords" type="search" value="{{.keywords}}" />
-            <input id="btn-search" class="btn btn-lg btn-primary btn-block" type="submit" value="検索" />
-        </form>
-        {{if eq .page.TotalElements 0}}
-            <p id="tweet-not-found" class="text-white">ツイートが見つかりません</p>
-        {{end}}
-        {{range .tweets}}
-            <div class="card" id="tweet">
-                <div class="card-header">
-                    {{.ScreenName}}
-                </div>
-                <div class="card-body">
-                    <p class="card-text" id="tweet-{{.ID}}">{{.Text | nl2br}}</p>
-                    {{if ne .RetweetText ""}}
-                    <div class="card">
+    {{if eq .page.TotalElements 0}}
+        <p id="tweet-not-found" class="text-white">ツイートが見つかりません</p>
+    {{end}}
+    {{range .tweets}}
+        <div class="row border-bottom border-secondary">
+            <div class="col-md-2 col-xs-2">
+            </div>
+            <div class="col-md-5 col-xs-2">
+                <blockquote class="twitter-tweet" data-align="center" data-theme="dark">
+                    <a href="{{.Url}}"></a>
+                    <div class="card" id="tweet">
                         <div class="card-header">
-                            {{.RetweetScreenName}}
+                            {{.ScreenName}}
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{.RetweetText | nl2br}}</p>
+                            <p class="card-text" id="tweet-{{.ID}}">{{.Text | nl2br}}</p>
+                            {{if ne .RetweetText ""}}
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{.RetweetScreenName}}
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{.RetweetText | nl2br}}</p>
+                                    </div>
+                                </div>
+                            {{end}}
+                        </div>
+                        <div class="card-footer">
+                            <a class="text-gray" href={{.Url}}>{{.TweetedAt}}</a>
                         </div>
                     </div>
-                    {{end}}
-                    {{if ne .Tags nil}}
-                        {{range .Tags}}
-                            <a class="btn btn-outline-secondary" href="/tweets/{{.Name}}" id="tag-{{.Name}}">{{.Name}}</a>
-                        {{end}}
-                    {{end}}
-                </div>
-                <div class="card-footer">
-                    <a class="text-gray" href={{.Url}}>{{.TweetedAt}}</a>
-                </div>
+                </blockquote>
             </div>
-        {{end}}
-        <div class="d-flex justify-content-center">
-            {{$this_page_number := .page.PageNumber}}
-            {{$last_page_number := .page.TotalPages}}
-            {{range .page.PaginateInfos}}
-                {{if eq .Info "first"}}
-                    {{if ne $this_page_number 1}}
-                        <a class="btn btn-secondary" href="/tweets{{.PathParam}}" id="btn-page-first"><<最初</a>
-                    {{end}}
-                {{else if eq .Info "last"}}
-                    {{if ne $this_page_number $last_page_number}}
-                        <a class="btn btn-secondary" href="/tweets{{.PathParam}}" id="btn-page-last">最後>></a>
-                    {{end}}
+            <div class="col-md-3 col-xs-2">
+                {{if ne .Tags nil}}
+                    <div class="row-md-1 mt-2">
+                        <p class="text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                                <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/>
+                                <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z"/>
+                            </svg>
+                            タグ
+                        </p>
+                        {{range .Tags}}
+                            <a class="badge bg-secondary rounded-pill text-decoration-none" href="/tweets/{{.Name}}" id="tag-{{.Name}}"># {{.Name}}</a>
+                        {{end}}
+                    </div>
+                {{end}}
+            </div>
+        </div>
+    {{end}}
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="d-flex justify-content-center">
+        {{range .page.PaginateInfos}}
+            {{if eq .Info "first"}}
+                {{if ne $.page.PageNumber 1}}
+                    <a class="btn btn-secondary" href="{{$.path}}{{.PathParam}}" id="btn-page-first"><<最初</a>
+                {{end}}
+            {{else if eq .Info "last"}}
+                {{if ne $.page.PageNumber $.page.TotalPages}}
+                    <a class="btn btn-secondary" href="{{$.path}}{{.PathParam}}" id="btn-page-last">最後>></a>
+                {{end}}
+            {{else}}
+                {{if eq .PageNumber $.page.PageNumber}}
+                    <a class="btn btn-primary" href="#" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a>
                 {{else}}
-                    {{if eq .PageNumber $this_page_number}}
-                        <a class="btn btn-primary" href="#" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a>
-                    {{else}}
-                        <a class="btn btn-secondary" href="/tweets{{.PathParam}}" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a>
-                    {{end}}
+                    <a class="btn btn-secondary" href="{{$.path}}{{.PathParam}}" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a>
                 {{end}}
             {{end}}
-        </div>
+        {{end}}
     </div>
 {{end}}
