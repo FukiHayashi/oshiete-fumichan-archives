@@ -39,9 +39,11 @@ func TweetsHandler(ctx *gin.Context) {
 
 	// 結果を返す
 	ctx.HTML(http.StatusOK, "tweets.html", gin.H{
-		"tweets":   tweets,
-		"keywords": keywords,
-		"page":     page,
+		"tweets":     tweets,
+		"keywords":   keywords,
+		"page":       page,
+		"path":       ctx.Request.URL.Path,
+		"categories": getAllCategories(db),
 	})
 }
 
@@ -65,9 +67,20 @@ func TweetsTagHandler(ctx *gin.Context) {
 
 	// 結果を返す
 	ctx.HTML(http.StatusOK, "tweets.html", gin.H{
-		"tweets": tweets,
-		"page":   page,
+		"tweets":     tweets,
+		"page":       page,
+		"path":       ctx.Request.URL.Path,
+		"categories": getAllCategories(db),
 	})
+}
+
+// 全てのカテゴリー、グループ、タグを取得
+func getAllCategories(db *gorm.DB) []models.Category {
+	var categories []models.Category
+
+	db.Preload("Groups.Tags").Find(&categories)
+
+	return categories
 }
 
 // ページ情報取得
