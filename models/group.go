@@ -11,6 +11,7 @@ type Group struct {
 	Name       string `gorm:"unique_category_id"`
 	CategoryID uint
 	Category   Category
+	Tags       []Tag
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	DeletedAt  gorm.DeletedAt `gorm:"index"`
