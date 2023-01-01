@@ -24,10 +24,8 @@ func CreateRenderTemplates() multitemplate.Render {
 	}
 	for _, html := range htmls {
 		slice := strings.Split(html, "/")
-		//		r.AddFromFiles(slice[len(slice)-1], "./views/layout.tmpl", "./views/_header.tmpl",
-		//			"./views/_footer.tmpl", "./views/_messages.tmpl", "./views/_sidebar.tmpl", html)
 		r.AddFromFilesFuncs(slice[len(slice)-1], template_funcs, "./views/layout.tmpl", "./views/_header.tmpl",
-			"./views/_footer.tmpl", "./views/_messages.tmpl", "./views/_sidebar.tmpl", html)
+			"./views/_footer.tmpl", "./views/_messages.tmpl", html)
 	}
 	return r
 }
