@@ -36,6 +36,7 @@
                 </blockquote>
             </div>
             <div class="col-md-3 col-xs-2">
+                {{$tweet_id := .ID}}
                 {{if ne .Tags nil}}
                     <div class="row-md-1 mt-2">
                         <p class="text-white">
@@ -46,7 +47,7 @@
                             タグ
                         </p>
                         {{range .Tags}}
-                            <a class="badge bg-secondary rounded-pill text-decoration-none" href="/tweets/{{.Name}}" id="tag-{{.Name}}"># {{.Name}}</a>
+                            <a class="badge bg-secondary rounded-pill text-decoration-none" href="/tweets/{{.Name}}" id="tag-{{$tweet_id}}-{{.ID}}"># {{.Name}}</a>
                         {{end}}
                     </div>
                 {{end}}

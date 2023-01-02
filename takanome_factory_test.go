@@ -14,7 +14,7 @@ var tweetFactory = factory.NewFactory(
 	return int64(n), nil
 }).Attr("Text", func(args factory.Args) (interface{}, error) {
 	tweet := args.Instance().(*models.Tweet)
-	return fmt.Sprintf("tweet-%d", tweet.ID), nil
+	return fmt.Sprintf("tweet-%d 二川二水", tweet.ID), nil
 }).Attr("Url", func(args factory.Args) (interface{}, error) {
 	tweet := args.Instance().(*models.Tweet)
 	return fmt.Sprintf("http://localhost/tweet/%d", tweet.ID), nil
