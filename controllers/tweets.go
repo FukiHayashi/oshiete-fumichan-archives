@@ -43,7 +43,7 @@ func TweetsHandler(ctx *gin.Context) {
 		"keywords":   keywords,
 		"page":       page,
 		"path":       ctx.Request.URL.Path,
-		"categories": getAllCategories(db),
+		"categories": GetAllCategories(db),
 	})
 }
 
@@ -70,17 +70,8 @@ func TweetsTagHandler(ctx *gin.Context) {
 		"tweets":     tweets,
 		"page":       page,
 		"path":       ctx.Request.URL.Path,
-		"categories": getAllCategories(db),
+		"categories": GetAllCategories(db),
 	})
-}
-
-// 全てのカテゴリー、グループ、タグを取得
-func getAllCategories(db *gorm.DB) []models.Category {
-	var categories []models.Category
-
-	db.Preload("Groups.Tags").Find(&categories)
-
-	return categories
 }
 
 // ページ情報取得

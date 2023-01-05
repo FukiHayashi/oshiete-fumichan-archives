@@ -1,0 +1,8 @@
+{{define "search_form"}}
+<div class="mb-3">
+<form method="GET" action="/tweets" class="text-white d-flex">
+    <input class="form-control me-2" aria-label="キーワード検索" id="input-search-keywords" name="keywords" type="search" value="{{.keywords}}" placeholder="キーワード"/>
+    <input id="btn-search" class="btn btn-lg btn-primary btn-block" type="submit" value="検索" />
+</form>
+</div>
+{{end}}

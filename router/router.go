@@ -1,11 +1,9 @@
 package router
 
 import (
-	"net/http"
 	"takanome/controllers"
 	"takanome/render"
 
-	"github.com/bamzi/jobrunner"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,10 +19,10 @@ func New() *gin.Engine {
 
 	root := router.Group("/")
 	{
-		root.GET("/", func(ctx *gin.Context) { ctx.HTML(http.StatusOK, "index.html", nil) })
+		root.GET("/", controllers.IndexHandler)
 		root.GET("/tweets", controllers.TweetsHandler)
 		root.GET("/tweets/:tag", controllers.TweetsTagHandler)
-		root.GET("/jobrunner/status", func(c *gin.Context) { c.JSON(http.StatusOK, jobrunner.StatusJson()) })
+		//		root.GET("/jobrunner/status", func(c *gin.Context) { c.JSON(http.StatusOK, jobrunner.StatusJson()) })
 	}
 	return router
 }

@@ -2,9 +2,67 @@
     index
 {{end}}
 {{define "content"}}
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <a href="/tweets" >検索を開始する</a>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="mt-4">
+                {{block "search_form" .}}
+                {{end}}
+            </div>
+        </div>
+    </div>
+    <div class="row text-white mt-4">
+        <div class="col-md-6 offset-md-3 text-center">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#site-description">
+                このサイトについて
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-target">
+                検索対象について
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="site-description" tabindex="-1" aria-labelledby="site-description-label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="site-description-label">このサイトについて</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    ツイッターで二川二水ちゃん(@assault_lily)が解説しているツイートを検索するためのサイトです。<br>
+                    解説ツイート、#教えて二水ちゃんの質問ツイートが検索対象になります。<br>
+                    用語がわからない方でも、上部の検索から自動でタグ付されたタグからツイートを検索することもできます。<br>
+                    ぜひ遊んでみてください。
+                </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="search-target" tabindex="-1" aria-labelledby="search-target-label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="search-target-label">検索対象</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>以下のリストのツイート</p>
+                <a href="https://twitter.com/assault_lily/timelines/1214471679621025795">解説PART1</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1254427810170408960">解説PART2</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1315670805561274368">解説PART3</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1333076094338039808">解説PART4</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1379102026387234820">解説PART5</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1413873301378592779">解説PART6</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1462449926118391811">解説PART7</a><br>
+                <a href="https://twitter.com/assault_lily/timelines/1506298320624717825">解説PART8</a><br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+            </div>
+          </div>
         </div>
     </div>
 {{end}}

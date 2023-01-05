@@ -1,5 +1,5 @@
 {{define "header"}}
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">O.F.S</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,70 +19,32 @@
     </nav>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasExampleLabel">検索条件</h5>
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">検索</h5>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div class="row border-top">
+              <div class="mt-4">
                 <p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                     </svg>
                     キーワード検索
                 </p>
-                <form method="GET" action="/tweets" class="text-white d-flex">
-                    <input class="form-control me-2" aria-label="キーワード検索" id="input-search-keywords" name="keywords" type="search" value="{{.keywords}}" placeholder="キーワード"/>
-                    <input id="btn-search" class="btn btn-lg btn-primary btn-block" type="submit" value="検索" />
-                </form>
+                {{block "search_form" .}}
+                {{end}}
+              </div>
             </div>
             <div class="row border-top mt-4">
                 <div class="mt-4">
-
                     <p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
-                            <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/>
-                            <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z"/>
-                        </svg>
-                        タグ検索
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                          <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/>
+                          <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z"/>
+                      </svg>
+                      タグ検索
                     </p>
-
-                    {{range .categories}}
-                    <div class="accordion accordion-flush" id="accordion-layer-category">
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-heading-{{.ID}}">
-                            <button id="category-{{.ID}}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{.ID}}" aria-expanded="false" aria-controls="flush-collapse-{{.ID}}">
-                              {{.Name}}
-                            </button>
-                          </h2>
-                          <div id="flush-collapse-{{.ID}}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{.ID}}" data-bs-parent="#accordion-layer-category">
-                            <div class="accordion-body">
-                                
-                                {{range .Groups}}
-                                <div class="accordion accordion-flush" id="accordion-layer-group">
-                                    <div class="accordion-item">
-                                      <h3 class="accordion-header" id="flush-heading-group-{{.ID}}">
-                                        <button id="group-{{.ID}}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-group-{{.ID}}" aria-expanded="false" aria-controls="flush-collapse-group-{{.ID}}">
-                                          {{.Name}}
-                                        </button>
-                                      </h3>
-                                      <div id="flush-collapse-group-{{.ID}}" class="accordion-collapse collapse" aria-labelledby="flush-heading-group-{{.ID}}" data-bs-parent="#accordion-layer-group">
-                                        <div class="accordion-body">
-                                        
-                                            {{range .Tags}}
-                                                <a class="badge bg-secondary rounded-pill text-decoration-none" href="/tweets/{{.Name}}" id="tag-{{.ID}}"># {{.Name}}</a>
-                                            {{end}}
-
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div>
-                                {{end}}
-
-                            </div>
-                          </div>
-                        </div>
-
-                    </div>
+                    {{block "tag_accordion" .}}
                     {{end}}
                 </div>
             </div>

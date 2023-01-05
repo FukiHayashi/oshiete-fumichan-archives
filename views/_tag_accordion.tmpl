@@ -1,0 +1,40 @@
+{{define "tag_accordion"}}
+{{range .categories}}
+    <div class="accordion accordion-flush" id="accordion-layer-category">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-heading-{{.ID}}">
+            <button id="category-{{.ID}}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{.ID}}" aria-expanded="false" aria-controls="flush-collapse-{{.ID}}">
+                {{.Name}}
+            </button>
+            </h2>
+            <div id="flush-collapse-{{.ID}}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{.ID}}" data-bs-parent="#accordion-layer-category">
+            <div class="accordion-body">
+                
+                {{range .Groups}}
+                <div class="accordion accordion-flush" id="accordion-layer-group">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-heading-group-{{.ID}}">
+                        <button id="group-{{.ID}}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-group-{{.ID}}" aria-expanded="false" aria-controls="flush-collapse-group-{{.ID}}">
+                            {{.Name}}
+                        </button>
+                        </h3>
+                        <div id="flush-collapse-group-{{.ID}}" class="accordion-collapse collapse" aria-labelledby="flush-heading-group-{{.ID}}" data-bs-parent="#accordion-layer-group">
+                        <div class="accordion-body">
+                        
+                            {{range .Tags}}
+                                <a class="badge bg-secondary rounded-pill text-decoration-none" href="/tweets/{{.Name}}" id="tag-{{.ID}}"># {{.Name}}</a>
+                            {{end}}
+
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+
+            </div>
+            </div>
+        </div>
+
+    </div>
+    {{end}}
+{{end}}
