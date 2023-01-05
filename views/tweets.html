@@ -55,23 +55,25 @@
         </div>
     {{end}}
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <div class="d-flex justify-content-center">
+    <nav aria-label="page-navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
         {{range .page.PaginateInfos}}
             {{if eq .Info "first"}}
                 {{if ne $.page.PageNumber 1}}
-                    <a class="btn btn-secondary" href="{{$.path}}{{.PathParam}}" id="btn-page-first"><<最初</a>
+                    <li class="page-item"><a class="page-link" href="{{$.path}}{{.PathParam}}" id="btn-page-first"><<最初</a></li>
                 {{end}}
             {{else if eq .Info "last"}}
                 {{if ne $.page.PageNumber $.page.TotalPages}}
-                    <a class="btn btn-secondary" href="{{$.path}}{{.PathParam}}" id="btn-page-last">最後>></a>
+                    <li class="page-item"><a class="page-link" href="{{$.path}}{{.PathParam}}" id="btn-page-last">最後>></a></li>
                 {{end}}
             {{else}}
                 {{if eq .PageNumber $.page.PageNumber}}
-                    <a class="btn btn-primary" href="#" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a>
+                    <li class="page-item active" aria-current="page"><a class="page-link" href="#" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a></li>
                 {{else}}
-                    <a class="btn btn-secondary" href="{{$.path}}{{.PathParam}}" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a>
+                    <li class="page-item"><a class="page-link" href="{{$.path}}{{.PathParam}}" id="btn-page-{{.PageNumber}}">{{.PageNumber}}</a></li>
                 {{end}}
             {{end}}
         {{end}}
-    </div>
+        </ul>
+    </nav>
 {{end}}
