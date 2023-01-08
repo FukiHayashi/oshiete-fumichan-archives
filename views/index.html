@@ -5,18 +5,22 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="mt-4">
-                {{block "search_form" .}}
-                {{end}}
+                <div class="mb-3">
+                    <form method="GET" action="/tweets" class="text-white d-flex">
+                        <input class="form-control me-2" aria-label="キーワード検索" id="input-search-keywords-index" name="keywords" type="search" value="{{.keywords}}" placeholder="キーワード"/>
+                        <input id="btn-search-index" class="btn btn-lg btn-primary btn-block" type="submit" value="検索" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
     <div class="row text-white mt-4">
         <div class="col-md-6 offset-md-3 text-center">
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#site-description">
+            <button id="site-description-btn" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#site-description">
                 このサイトについて
             </button>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-target">
-                検索対象について
+            <button id="search-target-btn" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-target">
+                検索対象
             </button>
         </div>
     </div>
@@ -36,7 +40,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+              <button id="site-description-close-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
             </div>
           </div>
         </div>
@@ -60,7 +64,7 @@
                 <a href="https://twitter.com/assault_lily/timelines/1506298320624717825">解説PART8</a><br>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+              <button id="search-target-close-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
             </div>
           </div>
         </div>

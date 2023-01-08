@@ -1,13 +1,13 @@
 {{define "footer"}}
 <footer class="footer mt-auto py-1 bg-dark fixed-bottom">
     <div class="container">
-        <a type="button" class="text-decoration-none text-muted mx-1" data-bs-toggle="modal" data-bs-target="#terms-of-service">
+        <a type="button" id="terms-of-service-link" class="text-decoration-none text-muted mx-1" data-bs-toggle="modal" data-bs-target="#terms-of-service">
             利用規約
         </a>
-        <a type="button" class="text-decoration-none text-muted mx-1" data-bs-toggle="modal" data-bs-target="#privacy-policy">
+        <a type="button" id="privacy-policy-link" class="text-decoration-none text-muted mx-1" data-bs-toggle="modal" data-bs-target="#privacy-policy">
            プライバシーポリシー
         </a>
-        <a type="button" class="text-decoration-none text-muted mx-1" data-bs-toggle="modal" data-bs-target="#content-of-tweets">
+        <a type="button" id="content-of-tweets-link" class="text-decoration-none text-muted mx-1" data-bs-toggle="modal" data-bs-target="#content-of-tweets">
             ツイートについて
         </a>
     </div>
@@ -118,7 +118,7 @@
             </ol>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button id="terms-of-service-close-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@
             </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button id="privacy-policy-close-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
             </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button id="content-of-tweets-close-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
         </div>
       </div>
     </div>
