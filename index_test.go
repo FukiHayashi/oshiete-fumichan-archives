@@ -1,6 +1,7 @@
 package main_test
 
 import (
+	"strconv"
 	"takanome/models"
 	"takanome/rareskill"
 	"time"
@@ -40,17 +41,19 @@ var _ = Describe("/", Ordered, func() {
 	})
 
 	Describe("ページコンテンツ確認", func() {
+		var text string
 		BeforeEach(func() {
 			Expect(page.Navigate(server_url)).To(Succeed())
+			text = "tweet-" + strconv.FormatInt(tweets[len(tweets)-1].ID, 10)
 		})
 		Describe("検索", func() {
 			Context("クリックした時", func() {
 				BeforeEach(func() {
-					Expect(page.FindByID("input-search-keywords-index").Fill("tweet-10")).To(Succeed())
+					Expect(page.FindByID("input-search-keywords-index").Fill(text)).To(Succeed())
 					Expect(page.FindByID("btn-search-index").Click()).To(Succeed())
 				})
 				It("ツイートを検索できること", func() {
-					Expect(page.FindByID("tweet-10")).To(MatchText("tweet-10"))
+					Expect(page.FindByID(text)).To(MatchText(text))
 				})
 			})
 		})

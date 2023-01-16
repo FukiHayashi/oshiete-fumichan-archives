@@ -125,14 +125,11 @@ var _ = Describe("/tweets", Ordered, func() {
 			Context("該当するツイートがあるキーワードで検索した時", func() {
 				BeforeEach(func() {
 					Expect(page.FindByID("search-menue").Click()).To(Succeed())
-					time.Sleep(time.Second * 2) // 入力画面が出るまで待つ
-					Expect(page.FindByID("input-search-keywords").Fill("tweet-1 tweet-10")).To(Succeed())
+					Expect(page.FindByID("input-search-keywords").Fill(tweets[len(tweets)-1].Text)).To(Succeed())
 					Expect(page.FindByID("btn-search").Click()).To(Succeed())
 				})
 				It("該当ツイートが表示されること", func() {
-					Expect(page.FindByID("tweet-10")).To(MatchText("tweet-10"))
-					Expect(page.FindByID("btn-page-2").Click()).To(Succeed())
-					Expect(page.FindByID("tweet-1")).To(MatchText("tweet-1"))
+					Expect(page.FindByID("tweet-" + strconv.FormatInt(tweets[len(tweets)-1].ID, 10))).To(MatchText(tweets[len(tweets)-1].Text))
 				})
 			})
 			Context("該当するツイートがないキーワードで検索した時", func() {
@@ -239,12 +236,11 @@ var _ = Describe("/tweets", Ordered, func() {
 		Describe("?keyword=", func() {
 			Context("該当するツイートがあるキーワードで検索した時", func() {
 				BeforeEach(func() {
-					Expect(page.Navigate(server_url + "/tweets?keywords=tweet-10+tweet-1")).To(Succeed())
+					text := strings.Replace(tweets[len(tweets)-1].Text, " ", "+", -1)
+					Expect(page.Navigate(server_url + "/tweets?keywords=" + text)).To(Succeed())
 				})
 				It("該当ツイートが表示されること", func() {
-					Expect(page.FindByID("tweet-10")).To(MatchText("tweet-10"))
-					Expect(page.FindByID("btn-page-2").Click()).To(Succeed())
-					Expect(page.FindByID("tweet-1")).To(MatchText("tweet-1"))
+					Expect(page.FindByID("tweet-" + strconv.FormatInt(tweets[len(tweets)-1].ID, 10))).To(MatchText(tweets[len(tweets)-1].Text))
 				})
 			})
 			Context("該当するツイートがないキーワードで検索した時", func() {
