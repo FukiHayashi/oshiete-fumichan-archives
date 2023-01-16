@@ -55,7 +55,7 @@ var _ = Describe("/tweets", Ordered, func() {
 		Describe("表示内容確認", func() {
 			Context("ページを開いた時", func() {
 				It("tweetsページが表示されること", func() {
-					Expect(page).To(HaveTitle("教えて二水ちゃん | tweets"))
+					Expect(page).To(HaveTitle("Fumi-chan Searcher | ツイート一覧"))
 				})
 				It("最新のツイートが表示されること", func() {
 					var tweet models.Tweet

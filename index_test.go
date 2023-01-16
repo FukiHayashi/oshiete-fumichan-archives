@@ -31,6 +31,10 @@ var _ = Describe("/", Ordered, func() {
 		page, err = agouti_driver.NewPage()
 		Expect(err).ToNot(HaveOccurred())
 	})
+
+	AfterAll(func() {
+		db.Delete(&tweets)
+	})
 	AfterEach(func() {
 		Expect(page.Destroy()).To(Succeed())
 	})
