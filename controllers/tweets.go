@@ -29,7 +29,7 @@ func TweetsHandler(ctx *gin.Context) {
 	var query = db.Preload("Tags").Order("id DESC")
 	for _, search_word := range search_words {
 		w := "%" + search_word + "%"
-		query.Or("text LIKE ? OR retweet_text LIKE ?", w, w)
+		query.Where("text LIKE ? OR retweet_text LIKE ?", w, w)
 	}
 	// ページ情報取得
 	page := getPageInfo(ctx, &tweets, query)
