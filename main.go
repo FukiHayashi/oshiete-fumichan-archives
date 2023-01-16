@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 	"takanome/database"
 	"takanome/rareskill"
 	"takanome/router"
@@ -25,7 +26,7 @@ func main() {
 	rareskill.Register()
 
 	jobrunner.Start()
-	jobrunner.Schedule("@every 1h", rareskill.Jobs{})
+	jobrunner.Schedule(os.Getenv("TWITTER_SEARCH_SCHEDULE"), rareskill.Jobs{})
 
 	rtr := router.New()
 	rtr.Run(":3000")
