@@ -23,7 +23,8 @@ func TweetsHandler(ctx *gin.Context) {
 
 	// 検索キーワードを受け取る
 	keywords := ctx.DefaultQuery("keywords", "")
-	search_words := strings.Split(keywords, " ")
+	tmp_keywords := strings.ReplaceAll(keywords, "　", " ")
+	search_words := strings.Split(tmp_keywords, " ")
 
 	// クエリ生成
 	var query = db.Preload("Tags").Order("id DESC")

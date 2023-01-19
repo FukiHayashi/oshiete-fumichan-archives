@@ -125,6 +125,7 @@ var _ = Describe("/tweets", Ordered, func() {
 			Context("該当するツイートがあるキーワードで検索した時", func() {
 				BeforeEach(func() {
 					Expect(page.FindByID("search-menue").Click()).To(Succeed())
+					time.Sleep(time.Second * 2) // 入力画面が出るまで待つ
 					Expect(page.FindByID("input-search-keywords").Fill(tweets[len(tweets)-1].Text)).To(Succeed())
 					Expect(page.FindByID("btn-search").Click()).To(Succeed())
 				})
@@ -141,6 +142,17 @@ var _ = Describe("/tweets", Ordered, func() {
 				})
 				It("ツイートが見つかりませんと表示されること", func() {
 					Expect(page.FindByID("tweet-not-found")).To(HaveText("ツイートが見つかりません"))
+				})
+			})
+			Context("全角スペース区切りで検索した時", func() {
+				BeforeEach(func() {
+					Expect(page.FindByID("search-menue").Click()).To(Succeed())
+					time.Sleep(time.Second * 2) // 入力画面が出るまで待つ
+					Expect(page.FindByID("input-search-keywords").Fill("二川　二水")).To(Succeed())
+					Expect(page.FindByID("btn-search").Click()).To(Succeed())
+				})
+				It("AND検索した結果が表示されること", func() {
+					Expect(page.FindByID("tweet-" + strconv.FormatInt(tweets[len(tweets)-1].ID, 10))).To(MatchText(tweets[len(tweets)-1].Text))
 				})
 			})
 		})
