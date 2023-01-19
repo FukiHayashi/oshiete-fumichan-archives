@@ -17,6 +17,8 @@ import (
 func Takanome() {
 	// アカウントのファボのツイートを取得
 	tlist := getFavoriteList()
+
+	tweetsUnFavorite(tlist)
 	// DBへ格納するためのモデルへ変換
 	mtl := tweetList2modelList(tlist)
 	// DBへ格納
@@ -33,8 +35,7 @@ func writeToDB(mtl []*models.Tweet) {
 	database.DataBaseDisconnect(db)
 }
 
-// ファボのツイートをリストで取得
-func getFavoriteList() []twitter.Tweet {
+func newTwitterClient() *twitter.Client {
 	config := oauth1.NewConfig(os.Getenv("TWITTER_CONSUMER_KEY"), os.Getenv("TWITTER_SECRET_KEY"))
 	token := oauth1.NewToken(os.Getenv("TWITTER_ACCESS_TOKEN"), os.Getenv("TWITTER_TOKEN_SECRET"))
 
@@ -44,6 +45,12 @@ func getFavoriteList() []twitter.Tweet {
 	// twitter client
 	client := twitter.NewClient(httpClient)
 
+	return client
+}
+
+// ファボのツイートをリストで取得
+func getFavoriteList() []twitter.Tweet {
+	client := newTwitterClient()
 	// TWITTER_ACCOUNTのファボを全文で取得する設定
 	max_count, _ := strconv.Atoi(os.Getenv("TWITTER_MAX_COUNT"))
 	params := twitter.FavoriteListParams{
@@ -96,4 +103,26 @@ func tweet2json(tw *twitter.Tweet) string {
 func str2time(t string) time.Time {
 	parsedTime, _ := time.Parse("Mon Jan 2 15:04:05 -0700 2006", t)
 	return parsedTime
+}
+
+func tweetsUnFavorite(twl []twitter.Tweet) {
+	// twitter client
+	client := newTwitterClient()
+
+	for i, tw := range twl {
+		// API制限に引っかからないように少しずつファボを消す様にする
+		if i > 0 {
+			params := twitter.FavoriteDestroyParams{
+				ID: tw.ID,
+			}
+			_, _, err := client.Favorites.Destroy(&params)
+			if err != nil {
+				log.Print(err.Error())
+			}
+			log.Println(tw.ID, tw.FullText)
+		}
+		if i > 10 {
+			break
+		}
+	}
 }
