@@ -26,7 +26,7 @@ func main() {
 	rareskill.Register()
 
 	jobrunner.Start()
-	jobrunner.Schedule(os.Getenv("TWITTER_SEARCH_SCHEDULE"), rareskill.Jobs{})
+	jobrunner.Schedule(os.Getenv("TWITTER_SEARCH_SCHEDULE"), rareskill.Skills{})
 
 	rtr := router.New()
 	rtr.Run(":3000")

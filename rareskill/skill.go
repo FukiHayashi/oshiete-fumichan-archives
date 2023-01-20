@@ -5,9 +5,9 @@ import (
 	"time"
 )
 
-type Jobs struct{}
+type Skills struct{}
 
-func (e Jobs) Run() {
+func (e Skills) Run() {
 	Takanome()
 	log.Println(time.Now(), "鷹の目")
 	Register()
