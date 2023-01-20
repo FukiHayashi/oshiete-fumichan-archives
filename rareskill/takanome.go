@@ -108,7 +108,9 @@ func str2time(t string) time.Time {
 func tweetsUnFavorite(twl []twitter.Tweet) {
 	// twitter client
 	client := newTwitterClient()
-
+	// ファボ解除数読み込み
+	unfavo_num, _ := strconv.Atoi(os.Getenv("TWITTER_UNFAVORITE_NUM"))
+	log.Println(unfavo_num)
 	for i, tw := range twl {
 		// API制限に引っかからないように少しずつファボを消す様にする
 		if i > 0 {
@@ -121,7 +123,7 @@ func tweetsUnFavorite(twl []twitter.Tweet) {
 			}
 			log.Println(tw.ID, tw.FullText)
 		}
-		if i > 10 {
+		if i > unfavo_num {
 			break
 		}
 	}
