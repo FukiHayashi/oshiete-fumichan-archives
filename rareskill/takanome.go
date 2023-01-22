@@ -123,7 +123,6 @@ func tweetsUnFavorite(twl []twitter.Tweet) {
 			if err != nil {
 				log.Print(err.Error())
 			}
-			log.Println(tw.ID, tw.FullText)
 		}
 		if i > unfavo_num {
 			break
