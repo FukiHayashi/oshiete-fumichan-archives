@@ -4,6 +4,7 @@
 .vscode
 /vendor
 /bin
+_google_analytics.tmpl
 
 # OSX
 .DS_Store

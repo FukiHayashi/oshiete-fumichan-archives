@@ -8,6 +8,8 @@
         <!-- CSSの設定ファイル -->
         <link rel="stylesheet" href="/assets/css/main.css">
         <link href="/assets/images/favicon.ico" rel="icon">
+        {{block "analytics" .}}
+        {{end}}
         <title>
             Fumi-chan Searcher | {{block "title" .}}
             {{end}}
