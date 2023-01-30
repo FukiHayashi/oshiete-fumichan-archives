@@ -38,13 +38,16 @@ func TweetsHandler(ctx *gin.Context) {
 	// tweetを取得
 	query.Scopes(models.Paginate(page)).Find(&tweets)
 
+	ctx.Request.URL.Query()
+
 	// 結果を返す
 	ctx.HTML(http.StatusOK, "tweets.html", gin.H{
-		"tweets":     tweets,
-		"keywords":   keywords,
-		"page":       page,
-		"path":       ctx.Request.URL.Path,
-		"categories": GetAllCategories(db),
+		"tweets":      tweets,
+		"keywords":    keywords,
+		"page":        page,
+		"path":        ctx.Request.URL.Path,
+		"request_uri": ctx.Request.RequestURI,
+		"categories":  GetAllCategories(db),
 	})
 }
 
@@ -68,10 +71,12 @@ func TweetsTagHandler(ctx *gin.Context) {
 
 	// 結果を返す
 	ctx.HTML(http.StatusOK, "tweets.html", gin.H{
-		"tweets":     tweets,
-		"page":       page,
-		"path":       ctx.Request.URL.Path,
-		"categories": GetAllCategories(db),
+		"tweets":      tweets,
+		"page":        page,
+		"path":        ctx.Request.URL.Path,
+		"request_uri": ctx.Request.RequestURI,
+		"categories":  GetAllCategories(db),
+		"tag":         ctx.Param("tag"),
 	})
 }
 
