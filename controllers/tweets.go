@@ -48,6 +48,7 @@ func TweetsHandler(ctx *gin.Context) {
 		"path":        ctx.Request.URL.Path,
 		"request_uri": ctx.Request.RequestURI,
 		"categories":  GetAllCategories(db),
+		"account":     os.Getenv("TWITTER_ACCOUNT"),
 	})
 }
 
@@ -77,6 +78,7 @@ func TweetsTagHandler(ctx *gin.Context) {
 		"request_uri": ctx.Request.RequestURI,
 		"categories":  GetAllCategories(db),
 		"tag":         ctx.Param("tag"),
+		"account":     os.Getenv("TWITTER_ACCOUNT"),
 	})
 }
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"os"
 	"takanome/database"
 	"takanome/models"
 
@@ -20,6 +21,7 @@ func IndexHandler(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
 		"categories": GetAllCategories(db),
 		"tweeted_at": tweet.TweetedAt.Local().Format("2006/01/02 15:04:05"),
+		"account":    os.Getenv("TWITTER_ACCOUNT"),
 	})
 
 }
